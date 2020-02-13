@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Videofix</title>
@@ -7,13 +8,14 @@
   <link rel="stylesheet" href="src/css/home.css" />
   <link rel="stylesheet" href="src/css/modal.css" />
 </head>
+
 <body>
   <section class="home search-active" id="home">
     <div class="home-sidebar">
       <div class="sidebar">
         <div class="logo">
           <figure class="logo-image">
-            <img src="src/images/platzi-video.png" alt="Peliculas Online"/>
+            <img src="src/images/platzi-video.png" alt="Peliculas Online" />
           </figure>
         </div>
         <div class="sidebarPlaylist">
@@ -158,42 +160,51 @@
     </div>
     <div class="home-primary">
       <!-- <section class="primary"> -->
-        <div class="primary-search">
-          <form action="" class="search" id="form">
-            <input type="text" name="name" placeholder="Buscar un artista o tema favorito"/>
-          </form>
+      <div class="primary-search">
+        <form action="" class="search" id="form">
+          <input type="text" name="name" placeholder="Buscar un artista o tema favorito" />
+        </form>
+      </div>
+      <div class="primary-user">
+        <div class="user">
+          <p>
+            <img
+              src="https://lh3.googleusercontent.com/-xiSv4-cIBO4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfzIVirSa_QGMIAmNY3AiIGrX-6Bg.CMID/s32-c/photo.jpg"
+              alt="" />
+            <span>Andrés Campuzano</span>
+          </p>
         </div>
-        <div class="primary-user">
-          <div class="user">
-            <p>
-              <img src="https://lh3.googleusercontent.com/-xiSv4-cIBO4/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfzIVirSa_QGMIAmNY3AiIGrX-6Bg.CMID/s32-c/photo.jpg" alt=""/>
-              <span>Andrés Campuzano</span>
-            </p>
-          </div>
-        </div>
-        <div class="primary-list">
-          <div class="primaryPlaylist">
-            <h3 class="primaryPlaylist-topic">A los golpes</h3>
-            <h2 class="primaryPlaylist-title">Acción</h2>
-            <div class="primaryPlaylist-list" id="action">
-              <img src="src/images/loader.gif" width="50" height="50" alt="">
-            </div>
-          </div>
-          <div class="primaryPlaylist">
-            <h3 class="primaryPlaylist-topic">Para llorar</h3>
-            <h2 class="primaryPlaylist-title">Drama</h2>
-            <div class="primaryPlaylist-list" id="drama">
-              <!-- here -->
-            </div>
-          </div>
-          <div class="primaryPlaylist">
-            <h3 class="primaryPlaylist-topic">Dibujitos animados</h3>
-            <h2 class="primaryPlaylist-title">Animación</h2>
-            <div class="primaryPlaylist-list" id="animation">
-              <img src="src/images/loader.gif" width="50" height="50" alt="">
-            </div>
+      </div>
+      <div class="primary-list">
+        <div class="primaryPlaylist">
+          <h3 class="primaryPlaylist-topic">A los golpes</h3>
+          <h2 class="primaryPlaylist-title">Acción</h2>
+          <div class="primaryPlaylist-list" id="action">
+            <!-- loader gif -->
+            <img src="src/images/loader.gif" width="50" height="50" alt="">
+            <!-- Here the info is printed by Javascript -->
           </div>
         </div>
+        <div class="primaryPlaylist">
+          <h3 class="primaryPlaylist-topic">Para llorar</h3>
+          <h2 class="primaryPlaylist-title">Drama</h2>
+          <div class="primaryPlaylist-list" id="drama">
+            <!-- here -->
+            <!-- loader gif -->
+            <img src="src/images/loader.gif" width="50" height="50" alt="">
+            <!-- Here the info is printed by Javascript -->
+          </div>
+        </div>
+        <div class="primaryPlaylist">
+          <h3 class="primaryPlaylist-topic">Dibujitos animados</h3>
+          <h2 class="primaryPlaylist-title">Animación</h2>
+          <div class="primaryPlaylist-list" id="animation">
+            <!-- loader gif -->
+            <img src="src/images/loader.gif" width="50" height="50" alt="">
+            <!-- Here the info is printed by Javascript -->
+          </div>
+        </div>
+      </div>
       <!-- </section> -->
     </div>
     <div class="home-featuring" id="featuring">
@@ -214,7 +225,8 @@
     <h1>Título de pelicula</h1>
     <div class="modal-content">
       <img src="" alt="" width="170" height="256">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione impedit maiores enim alias ex accusantium quasi cum autem, nam, voluptas tenetur laudantium quod! Odit voluptate illo, voluptas vel quia, quae.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione impedit maiores enim alias ex accusantium
+        quasi cum autem, nam, voluptas tenetur laudantium quod! Odit voluptate illo, voluptas vel quia, quae.</p>
     </div>
     <div class="modal-buttons">
       <button class="modal-btn primary" id="hide-modal">Cerrar Modal</button>
@@ -223,4 +235,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="src/js/home.js"></script>
 </body>
+
 </html>

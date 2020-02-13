@@ -59,9 +59,8 @@ fetch("https://randomuser.me/api/")
   });
 
 (async function load() {
-  // await
   // action
-  // terror
+  // drama
   // animation
 
   async function getData(url) {
@@ -70,10 +69,14 @@ fetch("https://randomuser.me/api/")
     return data;
   };
 
+  //Getting info from API
   const actionList = await getData('https://yts.am/api/v2/list_movies.json?genre=action');
   const dramaList = await getData('https://yts.am/api/v2/list_movies.json?genre=drama');
   const animationList = await getData('https://yts.am/api/v2/list_movies.json?genre=animation');
   console.log(actionList, dramaList, animationList);
+
+
+
   function videoItemTemplate(movie) {
     return (
       `<div class="primaryPlaylistItem">
@@ -86,27 +89,37 @@ fetch("https://randomuser.me/api/")
    </div>` 
     );
   };
-  
-  
-  const $actionContainer = document.querySelector('#action');
-  actionList.data.movies.forEach((movie) => {
-    // debugger
-    const HTMLString = videoItemTemplate(movie);
+  function createtemplate(HTMLString) {
     const html = document.implementation.createHTMLDocument();
     html.body.innerHTML = HTMLString;
-    $actionContainer.append(html.body.children[0]);
-    // console.log(HTMLString);
-  });
+    return html.body.children[0];
+  };
+  function renderMovieList(list, $container) {
+      $container.children[0].remove(); //deleting loading gift once the info is rendered.
+      list.forEach((movie) => {
+      // Printing information in DOM
+      const HTMLString = videoItemTemplate(movie);
+      const movieElement = createtemplate(HTMLString);
+      $container.append(movieElement);
+    });    
+  };
 
-
-  const $dramaContainer = document.getElementById('#drama');
-  const $animationContainer = document.getElementById('#animation');
   
+  //Getting information from HTML DOM
+  const $actionContainer = document.getElementById('action');
+  renderMovieList(actionList.data.movies ,$actionContainer)
+  
+  const $dramaContainer = document.getElementById('drama');
+  renderMovieList(dramaList.data.movies ,$dramaContainer)
+
+  const $animationContainer = document.getElementById('animation');
+  renderMovieList(animationList.data.movies ,$animationContainer)
+  
+  //Careful with #. when queryselector is used, # needs to be written.
   const $featurignContainer = document.getElementById('#featuring');
   const $form = document.getElementById('#form');
   const $home = document.getElementById('#home');
   
-  // careful with #
   const $modal = document.getElementById('modal');
   const $overlay = document.getElementById('overlay');
   const $hideModal = document.getElementById('hide-modal');
