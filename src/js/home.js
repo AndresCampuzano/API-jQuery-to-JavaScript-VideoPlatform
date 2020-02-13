@@ -30,16 +30,29 @@ fetch("https://randomuser.me/api/")
   const $home = document.getElementById('home');
   const $featurignContainer = document.getElementById('featuring');
 
-  
+  function setAttributes($element, attributes) {
+    for ( const attribute in attributes) {
+      $element.setAttribute(attribute, attributes[attribute]);
+    };
+  };
+
   //Event
   $form.addEventListener('submit', (event) => {
     event.preventDefault();
     $home.classList.add('search-active');
+    const $loader = document.createElement('img');
+    setAttributes($loader, {
+      src: 'src/images/loader.gif',
+      height: '50px',
+      widht: '50px'
+    });
+    $featurignContainer.append($loader)
   });
+
   //Getting info from API
-  const actionList = await getData('https://yts.am/api/v2/list_movies.json?genre=action');
-  const dramaList = await getData('https://yts.am/api/v2/list_movies.json?genre=drama');
-  const animationList = await getData('https://yts.am/api/v2/list_movies.json?genre=animation');
+  const actionList = await getData('https://yts.mx/api/v2/list_movies.json?genre=action');
+  const dramaList = await getData('https://yts.mx/api/v2/list_movies.json?genre=drama');
+  const animationList = await getData('https://yts.mx/api/v2/list_movies.json?genre=animation');
   
   console.log(actionList, dramaList, animationList);
 
@@ -62,7 +75,8 @@ fetch("https://randomuser.me/api/")
     html.body.innerHTML = HTMLString;
     return html.body.children[0];
   };
-  function addEventClick($element) { //modals
+  function addEventClick($element) { //modal
+
     $element.addEventListener('click', () => {
       // alert('click');
       showModal();
@@ -92,6 +106,7 @@ fetch("https://randomuser.me/api/")
   
   //Careful with #. when queryselector is used, # needs to be written.
   
+  // Modal code.
   const $modal = document.getElementById('modal');
   const $overlay = document.getElementById('overlay');
   const $hideModal = document.getElementById('hide-modal');
@@ -100,6 +115,18 @@ fetch("https://randomuser.me/api/")
   const $modalImage = $modal.getElementsByTagName('img');
   const $modalDescription = $modal.getElementsByTagName('p');
 
+  // showModal
+  function showModal() {
+    $overlay.classList.add('active');
+    $modal.style.animation = 'modalIn .8s forwards'
+  }
+
+  // hideModal
+  $hideModal.addEventListener('click', hideModal);
+  function hideModal() {
+    $overlay.classList.remove('active');
+    $modal.style.animation = 'modalOut .8s forwards'
+  };
 
 
 })();
