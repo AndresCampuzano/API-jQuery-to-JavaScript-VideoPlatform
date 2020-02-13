@@ -25,14 +25,22 @@ fetch("https://randomuser.me/api/")
     const data = await response.json();
     return data;
   };
+
   const $form = document.getElementById('form');
+  const $home = document.getElementById('home');
+  const $featurignContainer = document.getElementById('featuring');
+
+  
+  //Event
   $form.addEventListener('submit', (event) => {
     event.preventDefault();
+    $home.classList.add('search-active');
   });
   //Getting info from API
   const actionList = await getData('https://yts.am/api/v2/list_movies.json?genre=action');
   const dramaList = await getData('https://yts.am/api/v2/list_movies.json?genre=drama');
   const animationList = await getData('https://yts.am/api/v2/list_movies.json?genre=animation');
+  
   console.log(actionList, dramaList, animationList);
 
 
@@ -54,9 +62,10 @@ fetch("https://randomuser.me/api/")
     html.body.innerHTML = HTMLString;
     return html.body.children[0];
   };
-  function addEventClick($element) {
+  function addEventClick($element) { //modals
     $element.addEventListener('click', () => {
-      alert('click');
+      // alert('click');
+      showModal();
     });
   };
   function renderMovieList(list, $container) {
@@ -82,8 +91,6 @@ fetch("https://randomuser.me/api/")
   renderMovieList(animationList.data.movies ,$animationContainer)
   
   //Careful with #. when queryselector is used, # needs to be written.
-  const $featurignContainer = document.getElementById('featuring');
-  const $home = document.getElementById('home');
   
   const $modal = document.getElementById('modal');
   const $overlay = document.getElementById('overlay');
