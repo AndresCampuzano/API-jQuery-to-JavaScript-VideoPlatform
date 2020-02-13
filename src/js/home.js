@@ -28,7 +28,7 @@ fetch("https://randomuser.me/api/")
 
   const $form = document.getElementById('form');
   const $home = document.getElementById('home');
-  const $featurignContainer = document.getElementById('featuring');
+  const $featuringContainer = document.getElementById('featuring');
 
   function setAttributes($element, attributes) {
     for ( const attribute in attributes) {
@@ -36,8 +36,25 @@ fetch("https://randomuser.me/api/")
     };
   };
 
-  //Event
-  $form.addEventListener('submit', (event) => {
+  // Template movie found through form.
+  function featuringTemplate(peli) {
+    return (
+      `
+      <div class="featuring">
+        <div class="featuring-image">
+          <img src="${peli.medium_cover_image}" width="70" height="100" alt="">
+        </div>
+        <div class="featuring-content">
+          <p class="featuring-title">Pelicula encontrada</p>
+          <p class="featuring-album">${peli.title}</p>
+        </div>
+      </div>
+      `
+    );
+  };
+
+  //Events
+  $form.addEventListener('submit', async (event) => {
     event.preventDefault();
     $home.classList.add('search-active');
     const $loader = document.createElement('img');
@@ -46,7 +63,12 @@ fetch("https://randomuser.me/api/")
       height: '50px',
       widht: '50px'
     });
-    $featurignContainer.append($loader)
+    $featuringContainer.append($loader);
+    
+    const data = new FormData($form); //                               ↓↓↓↓   ↓   ↓↓↓↓                 ↓↓
+    const peli = await getData(`https://yts.mx/api/v2/list_movies.json?limit=1&query_term=${data.get('name')}`);
+    const HTMLString = featuringTemplate(peli.data.movies[0]);
+    $featuringContainer.innerHTML = HTMLString;
   });
 
   //Getting info from API
