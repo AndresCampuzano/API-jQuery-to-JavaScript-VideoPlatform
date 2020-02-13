@@ -1,62 +1,19 @@
-console.log('안녕하세요');
-const noCambia = "Andres";
+console.log('안녕하세요 세계!');
 
-let cambia = "@AndresCampuzano";
-
-function cambiarNombre(nuevoNombre) {
-  cambia = nuevoNombre;
-}
-
-const getUserAll = new Promise(function (todoBien, todoMal) {
-  // llamar a un API por ejemplo
-  setTimeout(function () {
-    todoBien("Time is over");
-  }, 5000);
-});
-
-const getUser = new Promise(function (todoBien, todoMal) {
-  // llamar a un API por ejemplo
-  setTimeout(function () {
-    todoBien("Time is over 3");
-  }, 3000);
-});
-
-// getUser
-//   .then(function () {
-//     console.log("안녕하세요 it works")
-//   }) .catch (function (message) {
-//     console.log(message)
-//   })
-
-Promise.race([getUser, getUserAll])
-  .then(function (message) {
-    console.log(message);
-  })
-  .catch(function (message) {
-    console.log(message);
-  });
-
-$.ajax("https://randomuser.me/api/", {
-  method: "GET",
-  success: function (data) {
-    console.log(data);
-  },
-  error: function (error) {
-    console.log(error);
-  }
-});
-
+//This is not related with the project, but is interesting, It brings a random user.
 fetch("https://randomuser.me/api/")
   .then(function (response) {
     console.log(response);
     return response.json();
   })
   .then(function (user) {
-    console.log("user", user.results[0].name.first);
+    console.log("user", user.results[0].name.first, "is with us today.");
   })
   .catch(function () {
     console.log("algo falló");
   });
+
+  //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ PROJECT ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 (async function load() {
   // action
@@ -68,7 +25,10 @@ fetch("https://randomuser.me/api/")
     const data = await response.json();
     return data;
   };
-
+  const $form = document.getElementById('form');
+  $form.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
   //Getting info from API
   const actionList = await getData('https://yts.am/api/v2/list_movies.json?genre=action');
   const dramaList = await getData('https://yts.am/api/v2/list_movies.json?genre=drama');
@@ -94,6 +54,11 @@ fetch("https://randomuser.me/api/")
     html.body.innerHTML = HTMLString;
     return html.body.children[0];
   };
+  function addEventClick($element) {
+    $element.addEventListener('click', () => {
+      alert('click');
+    });
+  };
   function renderMovieList(list, $container) {
       $container.children[0].remove(); //deleting loading gift once the info is rendered.
       list.forEach((movie) => {
@@ -101,6 +66,7 @@ fetch("https://randomuser.me/api/")
       const HTMLString = videoItemTemplate(movie);
       const movieElement = createtemplate(HTMLString);
       $container.append(movieElement);
+      addEventClick(movieElement); //Click event.
     });    
   };
 
@@ -116,9 +82,8 @@ fetch("https://randomuser.me/api/")
   renderMovieList(animationList.data.movies ,$animationContainer)
   
   //Careful with #. when queryselector is used, # needs to be written.
-  const $featurignContainer = document.getElementById('#featuring');
-  const $form = document.getElementById('#form');
-  const $home = document.getElementById('#home');
+  const $featurignContainer = document.getElementById('featuring');
+  const $home = document.getElementById('home');
   
   const $modal = document.getElementById('modal');
   const $overlay = document.getElementById('overlay');
