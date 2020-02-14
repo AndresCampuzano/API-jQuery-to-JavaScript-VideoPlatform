@@ -76,9 +76,21 @@ fetch("https://randomuser.me/api/")
   });
 
   //Getting info from API
-  const actionList = await getData('https://yts.mx/api/v2/list_movies.json?genre=action');
-  const dramaList = await getData('https://yts.mx/api/v2/list_movies.json?genre=drama');
-  const animationList = await getData('https://yts.mx/api/v2/list_movies.json?genre=animation');
+  const {
+    data: {
+      movies: actionList
+    }
+  } = await getData('https://yts.mx/api/v2/list_movies.json?genre=action');
+  const {
+    data: {
+      movies: dramaList
+    }
+  } = await getData('https://yts.mx/api/v2/list_movies.json?genre=drama');
+  const {
+    data: {
+      movies: animationList
+    }
+  } = await getData('https://yts.mx/api/v2/list_movies.json?genre=animation');
   
   console.log(actionList, dramaList, animationList);
 
@@ -96,17 +108,20 @@ fetch("https://randomuser.me/api/")
    </div>` 
     );
   };
+
   function createtemplate(HTMLString) {
     const html = document.implementation.createHTMLDocument();
     html.body.innerHTML = HTMLString;
     return html.body.children[0];
   };
+
   function addEventClick($element) { //modal
     $element.addEventListener('click', () => {
       // alert('click');
       showModal($element);
     });
   };
+
   function renderMovieList(list, $container, category) {
       $container.children[0].remove(); //deleting loading gift once the info is rendered.
       list.forEach((movie) => {
@@ -121,13 +136,13 @@ fetch("https://randomuser.me/api/")
   
   //Getting information from HTML DOM
   const $actionContainer = document.getElementById('action');
-  renderMovieList(actionList.data.movies ,$actionContainer, 'action')
+  renderMovieList(actionList ,$actionContainer, 'action')
   
   const $dramaContainer = document.getElementById('drama');
-  renderMovieList(dramaList.data.movies ,$dramaContainer, 'drama')
+  renderMovieList(dramaList ,$dramaContainer, 'drama')
 
   const $animationContainer = document.getElementById('animation');
-  renderMovieList(animationList.data.movies ,$animationContainer, 'animation')
+  renderMovieList(animationList ,$animationContainer, 'animation')
   
   //Careful with #. when queryselector is used, # needs to be written.
   
@@ -136,9 +151,28 @@ fetch("https://randomuser.me/api/")
   const $overlay = document.getElementById('overlay');
   const $hideModal = document.getElementById('hide-modal');
 
-  const $modalTitle = $modal.getElementsByTagName('h1');
-  const $modalImage = $modal.getElementsByTagName('img');
-  const $modalDescription = $modal.getElementsByTagName('p');
+  const $modalTitle = $modal.querySelector('h1');
+  const $modalImage = $modal.querySelector('img');
+  const $modalDescription = $modal.querySelector('p');
+
+
+  function findById(list, id) {
+    return list.find(movie => movie.id === parseInt(id, 10));
+  };
+
+  function findMovie(id, category) {
+    switch (category) {
+      case 'action' : {
+        return findById(actionList, id)
+      };
+      case 'drama' : {
+        return findById(dramaList, id)
+      };
+      default: {
+        return findById(animationList, id)
+      };
+    };
+  };
 
   // showModal
   function showModal($element) {
@@ -146,6 +180,11 @@ fetch("https://randomuser.me/api/")
     $modal.style.animation = 'modalIn .8s forwards';
     const id = $element.dataset.id;
     const category = $element.dataset.category;
+    const data = findMovie(id, category);  
+
+    $modalTitle.textContent = data.title;
+    $modalImage.setAttribute('src', data.medium_cover_image);
+    $modalDescription.textContent = data.description_full  
   }
 
   // hideModal
