@@ -66,8 +66,12 @@ fetch("https://randomuser.me/api/")
     $featuringContainer.append($loader);
     
     const data = new FormData($form); //                               ↓↓↓↓   ↓   ↓↓↓↓                 ↓↓
-    const peli = await getData(`https://yts.mx/api/v2/list_movies.json?limit=1&query_term=${data.get('name')}`);
-    const HTMLString = featuringTemplate(peli.data.movies[0]);
+    const {
+      data: {
+        movies: pelis
+      }
+    } = await getData(`https://yts.mx/api/v2/list_movies.json?limit=1&query_term=${data.get('name')}`);
+    const HTMLString = featuringTemplate(pelis[0]);
     $featuringContainer.innerHTML = HTMLString;
   });
 
