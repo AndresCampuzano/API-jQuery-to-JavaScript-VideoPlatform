@@ -84,9 +84,9 @@ fetch("https://randomuser.me/api/")
 
 
 
-  function videoItemTemplate(movie) {
+  function videoItemTemplate(movie, category) {
     return (
-      `<div class="primaryPlaylistItem">
+      `<div class="primaryPlaylistItem" data-id="${movie.id}" data-category="${category}">
       <div class="primaryPlaylistItem-image">
         <img src="${movie.medium_cover_image}">
        </div>
@@ -102,17 +102,16 @@ fetch("https://randomuser.me/api/")
     return html.body.children[0];
   };
   function addEventClick($element) { //modal
-
     $element.addEventListener('click', () => {
       // alert('click');
-      showModal();
+      showModal($element);
     });
   };
-  function renderMovieList(list, $container) {
+  function renderMovieList(list, $container, category) {
       $container.children[0].remove(); //deleting loading gift once the info is rendered.
       list.forEach((movie) => {
       // Printing information in DOM
-      const HTMLString = videoItemTemplate(movie);
+      const HTMLString = videoItemTemplate(movie, category);
       const movieElement = createtemplate(HTMLString);
       $container.append(movieElement);
       addEventClick(movieElement); //Click event.
@@ -122,13 +121,13 @@ fetch("https://randomuser.me/api/")
   
   //Getting information from HTML DOM
   const $actionContainer = document.getElementById('action');
-  renderMovieList(actionList.data.movies ,$actionContainer)
+  renderMovieList(actionList.data.movies ,$actionContainer, 'action')
   
   const $dramaContainer = document.getElementById('drama');
-  renderMovieList(dramaList.data.movies ,$dramaContainer)
+  renderMovieList(dramaList.data.movies ,$dramaContainer, 'drama')
 
   const $animationContainer = document.getElementById('animation');
-  renderMovieList(animationList.data.movies ,$animationContainer)
+  renderMovieList(animationList.data.movies ,$animationContainer, 'animation')
   
   //Careful with #. when queryselector is used, # needs to be written.
   
@@ -142,9 +141,11 @@ fetch("https://randomuser.me/api/")
   const $modalDescription = $modal.getElementsByTagName('p');
 
   // showModal
-  function showModal() {
+  function showModal($element) {
     $overlay.classList.add('active');
-    $modal.style.animation = 'modalIn .8s forwards'
+    $modal.style.animation = 'modalIn .8s forwards';
+    const id = $element.dataset.id;
+    const category = $element.dataset.category;
   }
 
   // hideModal
