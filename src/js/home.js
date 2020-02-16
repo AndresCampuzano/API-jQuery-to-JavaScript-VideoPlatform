@@ -7,11 +7,13 @@ fetch("https://randomuser.me/api/")
     return response.json();
   })
   .then(function (user) {
-    console.log("user", user.results[0].name.first, "is with us today.");
+    console.log("user", user.results[0].name.first, "is generated randomly by API.");
   })
   .catch(function () {
     console.log("algo falló");
   });
+
+  console.log('Movies will be rendered in some seconds, please wait.');
 
   //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ PROJECT ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
